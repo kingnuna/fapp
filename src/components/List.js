@@ -24,7 +24,7 @@ export default function List(){
                     <li>
                          {item.num} /  
                          {item.name} / 
-                        <img alt="no image" src={'http://localhost:8081/read-img/'+item.path} className="imgstyle"/>
+                        <img alt="no" src={'http://localhost:8081/read-img/'+item.path} className="imgstyle"/>
                     </li>
                 ))       
             }
