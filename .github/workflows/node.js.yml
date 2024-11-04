@@ -46,16 +46,7 @@ jobs:
 
     # Docker Hub 이미지 푸시
     - name: docker Hub push
-      run: docker push kingnuna/fapp:v1
-
-    - name: Deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: 52.79.60.93 
-        port: 22
-        username: ubuntu
-        key: ${{ secrets.PRIVATE_KEY }} # pem 키
-      # 도커 작업
+ 드
         script: |
           sudo docker container stop fapp #컨테이너 종료
           sudo docker container rm fapp  #컨테이너 삭제
