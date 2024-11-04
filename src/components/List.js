@@ -22,8 +22,9 @@ export default function List(){
             {
                 list.map((item)=>(
                     <li>
-                         {item.name}  
-                        <img src={'http://localhost:8081/read-img/'+item.path} className="imgstyle"/>
+                         {item.num} /  
+                         {item.name} / 
+                        <img alt="no image" src={'http://localhost:8081/read-img/'+item.path} className="imgstyle"/>
                     </li>
                 ))       
             }
