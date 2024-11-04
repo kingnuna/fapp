@@ -46,10 +46,22 @@ jobs:
 
     # Docker Hub 이미지 푸시
     - name: docker Hub push
- 드
+      run: docker push kingnuna/repo1:myfront
+
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: 43.202.53.5 
+        port: 22
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }} # pem 키
+        
         script: |
           sudo docker container stop fapp #컨테이너 종료
           sudo docker container rm fapp  #컨테이너 삭제
           sudo docker rmi kingnuna/fapp:v1
           sudo docker pull kingnuna/fapp:v1
           sudo docker run -p 3000:3000 --name fapp kingnuna/fapp:v1
+# 배포시 에러나면 pc react 프로젝트에서 다음 명령어 실행
+# npm install --save-dev @babel/plugin-proposal-private-property-in-object 
+# 깃 변경 적용
