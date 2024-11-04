@@ -51,7 +51,7 @@ jobs:
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: 43.202.53.5 
+        host: 52.79.60.93 
         port: 22
         username: ubuntu
         key: ${{ secrets.PRIVATE_KEY }} # pem 키
