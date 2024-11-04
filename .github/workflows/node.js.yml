@@ -29,6 +29,7 @@ jobs:
     - run: npm ci
     - run: npm install react-router-dom
     - run: npm install axios
+    - run: npm install --save-dev @babel/plugin-transform-private-property-in-object
     - run: npm run build --if-present
     - run: npm test
     
