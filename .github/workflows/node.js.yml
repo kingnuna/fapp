@@ -55,4 +55,4 @@ jobs:
           sudo docker container rm fapp  #컨테이너 삭제
           sudo docker rmi kingnuna/fapp:v1
           sudo docker pull kingnuna/fapp:v1
-          sudo docker run -p 3000:3000 --name fapp fapp
+          sudo docker run -p 3000:3000 --name fapp kingnuna/fapp:v1
