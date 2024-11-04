@@ -46,7 +46,7 @@ jobs:
 
     # Docker Hub 이미지 푸시
     - name: docker Hub push
-      run: docker push kingnuna/repo1:myfront
+      run: docker push kingnuna/fapp:v1
 
     - name: Deploy
       uses: appleboy/ssh-action@master
