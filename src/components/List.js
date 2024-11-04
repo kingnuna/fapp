@@ -5,7 +5,7 @@ export default function List(){
     const [list, setList] = useState([]);
     
     useEffect(()=>{
-        axios.get('http://localhost:8081/item')
+        axios.get('http://52.79.60.93:8081/item')
         .then(function(res){
             if(res.status===200){
                 setList(res.data.list);
@@ -24,7 +24,7 @@ export default function List(){
                     <li>
                          {item.num} /  
                          {item.name} / 
-                        <img alt="no" src={'http://localhost:8081/read-img/'+item.path} className="imgstyle"/>
+                        <img alt="no" src={'http://52.79.60.93:8081/read-img/'+item.path} className="imgstyle"/>
                     </li>
                 ))       
             }
