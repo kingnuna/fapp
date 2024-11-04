@@ -1,0 +1,61 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+    
+   # Docker 이미지 빌드
+    - name: docker image build
+      run: docker build -t kingnuna/fapp:v1 .
+
+    # DockerHub 로그인
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    # Docker Hub 이미지 푸시
+    - name: docker Hub push
+      run: docker push kingnuna/fapp:v1
+
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: 52.79.60.93 
+        port: 22
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }} # pem 키
+      # 도커 작업
+        script: |
+          sudo docker container stop fapp #컨테이너 종료
+          sudo docker container rm fapp  #컨테이너 삭제
+          sudo docker rmi kingnuna/fapp:v1
+          sudo docker pull kingnuna/fapp:v1
+          sudo docker run -p 3000:3000 --name fapp fapp
