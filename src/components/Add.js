@@ -18,7 +18,7 @@ export default function Add(){
     
     const add = () => {
         let fdata = new FormData(document.getElementById('addf'));
-        axios.post('http://52.79.60.93:8081/item',fdata,{})
+        axios.post('http://13.209.96.171:8081/item',fdata,{})
             .then(function(res){//res.status:상태값, res.data:백에서 보낸 데이터
                 if(res.status === 200){
                     if(res.data.flag){
